@@ -2,7 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 
-const API_BASE = "/api/links";
+const API_BASE = "http://localhost:8080/api/links";
 
 const emptyForm = {
   originalUrl: "",
@@ -176,9 +176,9 @@ export default function App() {
   }
 
   async function copyShortUrl(slug) {
-    const shortUrl = `${window.location.origin}/${slug}`;
-    await navigator.clipboard.writeText(shortUrl);
-  }
+  const shortUrl = `http://localhost:8080/${slug}`;
+  await navigator.clipboard.writeText(shortUrl);
+}
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
