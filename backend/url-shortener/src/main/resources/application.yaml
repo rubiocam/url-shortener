@@ -3,16 +3,13 @@ spring:
     name: url-shortener
 
   datasource:
-    url: jdbc:postgresql://aws-1-us-east-1.pooler.supabase.com:5432/postgres
-    username: USERNAME
-    password: "PASSWORD"
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
 
   jpa:
     hibernate:
       ddl-auto: validate
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
 
   flyway:
     enabled: true
@@ -20,4 +17,4 @@ spring:
     baseline-version: 0
 
 server:
-  port: 8080
+  port: ${PORT:8080}

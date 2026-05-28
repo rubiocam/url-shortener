@@ -4,12 +4,11 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.web.bind.annotation.*;
 
-        import java.util.List;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/links")
-@CrossOrigin(origins = "http://localhost:3000")
 public class LinkController {
 
     private final LinkService service;
@@ -30,6 +29,7 @@ public class LinkController {
 
     @PostMapping
     public Link create(@Valid @RequestBody CreateLinkRequest request) {
+
         return service.create(
                 request.originalUrl(),
                 request.slug(),
@@ -39,7 +39,11 @@ public class LinkController {
     }
 
     @PutMapping("/{id}")
-    public Link update(@PathVariable UUID id, @Valid @RequestBody UpdateLinkRequest request) {
+    public Link update(
+            @PathVariable UUID id,
+            @Valid @RequestBody UpdateLinkRequest request
+    ) {
+
         return service.update(
                 id,
                 request.originalUrl(),
@@ -59,12 +63,14 @@ public class LinkController {
             String slug,
             String title,
             String notes
-    ) {}
+    ) {
+    }
 
     public record UpdateLinkRequest(
             @NotBlank String originalUrl,
             String title,
             String notes,
             boolean archived
-    ) {}
+    ) {
+    }
 }
