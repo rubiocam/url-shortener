@@ -2,7 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 
-const API_BASE = "http://localhost:8080/api/links";
+const API_BASE = "https://url-shortener-9hfy.onrender.com";
 
 const emptyForm = {
   originalUrl: "",
