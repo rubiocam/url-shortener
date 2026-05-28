@@ -1,8 +1,7 @@
-"use client";
-
 import React, { useEffect, useMemo, useState } from "react";
 
-const API_BASE = "https://url-shortener-9hfy.onrender.com";
+const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080/api/links";
+const SHORT_URL_BASE = import.meta.env.VITE_SHORT_URL_BASE ?? "http://localhost:8080";
 
 const emptyForm = {
   originalUrl: "",
@@ -176,9 +175,9 @@ export default function App() {
   }
 
   async function copyShortUrl(slug) {
-  const shortUrl = `http://localhost:8080/${slug}`;
-  await navigator.clipboard.writeText(shortUrl);
-}
+    const shortUrl = `${SHORT_URL_BASE.replace(/\/$/, "")}/${slug}`;
+    await navigator.clipboard.writeText(shortUrl);
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
@@ -253,9 +252,7 @@ export default function App() {
             </div>
 
             {loading ? (
-              <div className="px-4 py-10 text-sm text-slate-500">
-                Loading links…
-              </div>
+              <div className="px-4 py-10 text-sm text-slate-500">Loading links…</div>
             ) : filteredLinks.length === 0 ? (
               <div className="px-4 py-10 text-sm text-slate-500">
                 No links found. Create your first one.
@@ -263,31 +260,20 @@ export default function App() {
             ) : (
               <div className="divide-y divide-slate-200">
                 {filteredLinks.map((link) => (
-                  <div
-                    key={link.id}
-                    className="grid gap-4 px-4 py-4 md:grid-cols-12 md:items-center"
-                  >
+                  <div key={link.id} className="grid gap-4 px-4 py-4 md:grid-cols-12 md:items-center">
                     <div className="md:col-span-2">
                       <div className="text-sm font-semibold">/{link.slug}</div>
-                      <div className="mt-1 text-xs text-slate-500">
-                        {link.title || "Untitled"}
-                      </div>
+                      <div className="mt-1 text-xs text-slate-500">{link.title || "Untitled"}</div>
                     </div>
 
                     <div className="md:col-span-4">
-                      <div className="truncate text-sm text-slate-700">
-                        {link.originalUrl}
-                      </div>
+                      <div className="truncate text-sm text-slate-700">{link.originalUrl}</div>
                       {link.notes ? (
-                        <div className="mt-1 truncate text-xs text-slate-500">
-                          {link.notes}
-                        </div>
+                        <div className="mt-1 truncate text-xs text-slate-500">{link.notes}</div>
                       ) : null}
                     </div>
 
-                    <div className="md:col-span-2 text-sm font-medium">
-                      {link.clickCount || 0}
-                    </div>
+                    <div className="md:col-span-2 text-sm font-medium">{link.clickCount || 0}</div>
 
                     <div className="md:col-span-2">
                       <span
