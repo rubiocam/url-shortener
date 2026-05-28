@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: url-shortener
+
+  datasource:
+    url: jdbc:postgresql://aws-1-us-east-1.pooler.supabase.com:5432/postgres
+    username: postgres.ywnfpkrrciexhtexmuzc
+    password: "Au262005!?!?!?!"
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    baseline-version: 0
+
+server:
+  port: 8080
